@@ -575,7 +575,7 @@ abstract class Base implements IteratorAggregate
                     echo $finalString;
                 }
             } else {
-                $this->fluent->debug($this);
+                call_user_func( $this->fluent->debug, $this );
             }
         }
     }
