@@ -2,8 +2,9 @@
 
 namespace Envms\FluentPDO\Queries;
 
-use DateTime, IteratorAggregate, PDO, PDOStatement;
+use DateTime, IteratorAggregate;
 use Envms\FluentPDO\{Exception, Literal, Query, Regex, Structure, Utilities};
+use Swoole\Database\PDOStatementProxy;
 
 /**
  * Base query builder
@@ -23,7 +24,7 @@ abstract class Base implements IteratorAggregate
     /** @var Query */
     protected $fluent;
 
-    /** @var PDOStatement */
+    /** @var PDOStatementProxy */
     protected $result;
 
     /** @var array - definition clauses */
@@ -168,7 +169,7 @@ abstract class Base implements IteratorAggregate
     /**
      * Implements method from IteratorAggregate
      *
-     * @return PDOStatement
+     * @return PDOStatementProxy
      *
      * @throws Exception
      */
@@ -180,7 +181,7 @@ abstract class Base implements IteratorAggregate
     /**
      * Execute query with earlier added parameters
      *
-     * @return PDOStatement
+     * @return PDOStatementProxy
      *
      * @throws Exception
      */
@@ -216,9 +217,9 @@ abstract class Base implements IteratorAggregate
     /**
      * Get PDOStatement result
      *
-     * @return ?PDOStatement
+     * @return ?PDOStatementProxy
      */
-    public function getResult(): ?PDOStatement
+    public function getResult(): ?PDOStatementProxy
     {
         return $this->result;
     }
@@ -519,9 +520,9 @@ abstract class Base implements IteratorAggregate
     }
 
     /**
-     * @param PDOStatement $result
+     * @param PDOStatementProxy $result
      */
-    private function setObjectFetchMode(PDOStatement $result): void
+    private function setObjectFetchMode(PDOStatementProxy $result): void
     {
         if ($this->object !== false) {
             if (class_exists($this->object)) {
