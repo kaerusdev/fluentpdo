@@ -4,6 +4,7 @@ namespace Envms\FluentPDO\Queries;
 
 use DateTime, IteratorAggregate;
 use Envms\FluentPDO\{Exception, Literal, Query, Regex, Structure, Utilities};
+use PDO;
 use Swoole\Database\PDOStatementProxy;
 
 /**
