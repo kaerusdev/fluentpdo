@@ -2,8 +2,8 @@
 
 namespace Envms\FluentPDO;
 
-use PDO;
 use Envms\FluentPDO\Queries\{Insert, Select, Update, Delete};
+use Swoole\Database\PDOProxy;
 
 /**
  * FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.
@@ -22,7 +22,7 @@ use Envms\FluentPDO\Queries\{Insert, Select, Update, Delete};
  */
 class Query
 {
-    /** @var PDO */
+    /** @var PDOProxy */
     protected $pdo;
     /** @var Structure */
     protected $structure;
@@ -45,21 +45,15 @@ class Query
     /** @var string */
     protected $separator;
 
-    /**
-     * Query constructor
-     *
-     * @param PDO        $pdo
-     * @param ?Structure $structure
-     */
-    public function __construct(PDO $pdo, ?Structure $structure = null)
+	/**
+	 * Query constructor.
+	 *
+	 * @param PDOProxy       $pdo
+	 * @param Structure|null $structure
+	 */
+    public function __construct(PDOProxy $pdo, ?Structure $structure = null)
     {
         $this->pdo = $pdo;
-
-        // if exceptions are already activated in PDO, activate them in Fluent as well
-        if ($this->pdo->getAttribute(PDO::ATTR_ERRMODE) === PDO::ERRMODE_EXCEPTION) {
-            $this->throwExceptionOnError(true);
-        }
-
         $this->structure = ($structure instanceof Structure) ? $structure : new Structure();
     }
 
@@ -176,9 +170,9 @@ class Query
     }
 
     /**
-     * @return PDO
+     * @return PDOProxy
      */
-    public function getPdo(): PDO
+    public function getPdo(): PDOProxy
     {
         return $this->pdo;
     }
