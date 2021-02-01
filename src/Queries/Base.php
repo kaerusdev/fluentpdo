@@ -216,7 +216,7 @@ abstract class Base implements IteratorAggregate
     }
 
     /**
-     * Get PDOStatement result
+     * Get PDOStatementProxy result
      *
      * @return ?PDOStatementProxy
      */

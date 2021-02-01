@@ -3,6 +3,7 @@
 namespace Envms\FluentPDO\Queries;
 
 use Envms\FluentPDO\{Exception, Literal, Query};
+use Swoole\Database\PDOStatementProxy;
 
 /**
  * UPDATE query builder
@@ -78,7 +79,7 @@ class Update extends Common
      *
      * @throws Exception
      *
-     * @return int|boolean|\PDOStatement
+     * @return int|boolean|PDOStatementProxy
      */
     public function execute($getResultAsPdoStatement = false)
     {

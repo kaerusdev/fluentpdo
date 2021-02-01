@@ -3,6 +3,7 @@
 namespace Envms\FluentPDO\Queries;
 
 use Envms\FluentPDO\{Exception, Query, Utilities};
+use Swoole\Database\PDOStatementProxy;
 
 /**
  * SELECT query builder
@@ -146,7 +147,7 @@ class Select extends Common implements \Countable
      *
      * @throws Exception
      *
-     * @return array|\PDOStatement
+     * @return array|PDOStatementProxy
      */
     public function fetchPairs($key, $value, $object = false)
     {
@@ -210,7 +211,7 @@ class Select extends Common implements \Countable
     /**
      * @throws Exception
      *
-     * @return \ArrayIterator|\PDOStatement
+     * @return \ArrayIterator|PDOStatementProxy
      */
     public function getIterator()
     {

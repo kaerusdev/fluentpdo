@@ -2,6 +2,8 @@
 
 namespace Envms\FluentPDO;
 
+use Swoole\Database\PDOStatementProxy;
+
 /**
  * Class Utilities
  */
@@ -37,14 +39,14 @@ class Utilities
     }
 
     /**
-     * Converts columns from strings to types according to PDOStatement::columnMeta()
+     * Converts columns from strings to types according to PDOStatementProxy::columnMeta()
      *
-     * @param \PDOStatement      $statement
-     * @param array|\Traversable $rows - provided by PDOStatement::fetch with PDO::FETCH_ASSOC
+     * @param PDOStatementProxy      $statement
+     * @param array|\Traversable $rows - provided by PDOStatementProxy::fetch with PDO::FETCH_ASSOC
      *
      * @return array|\Traversable
      */
-    public static function stringToNumeric(\PDOStatement $statement, $rows)
+    public static function stringToNumeric(PDOStatementProxy $statement, $rows)
     {
         for ($i = 0; ($columnMeta = $statement->getColumnMeta($i)) !== false; $i++) {
             $type = $columnMeta['native_type'];
