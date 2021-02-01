@@ -22,7 +22,7 @@ use Swoole\Database\PDOProxy;
  */
 class Query
 {
-    /** @var PDOProxy */
+    /** @var \PDO|PDOProxy */
     protected $pdo;
     /** @var Structure */
     protected $structure;
@@ -48,10 +48,10 @@ class Query
 	/**
 	 * Query constructor.
 	 *
-	 * @param PDOProxy       $pdo
+	 * @param \PDO|PDOProxy       $pdo
 	 * @param Structure|null $structure
 	 */
-    public function __construct(PDOProxy $pdo, ?Structure $structure = null)
+    public function __construct(\PDO|PDOProxy $pdo, ?Structure $structure = null)
     {
         $this->pdo = $pdo;
         $this->structure = ($structure instanceof Structure) ? $structure : new Structure();
@@ -170,9 +170,9 @@ class Query
     }
 
     /**
-     * @return PDOProxy
+     * @return \PDO|PDOProxy
      */
-    public function getPdo(): PDOProxy
+    public function getPdo(): \PDO|PDOProxy
     {
         return $this->pdo;
     }

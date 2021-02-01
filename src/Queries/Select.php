@@ -104,7 +104,7 @@ class Select extends Common implements \Countable
     /**
      * Fetch first row or column
      *
-     * @param string $column - column name or empty string for the whole row
+     * @param ?string $column - column name or empty string for the whole row
      * @param int    $cursorOrientation
      *
      * @throws Exception
@@ -147,7 +147,7 @@ class Select extends Common implements \Countable
      *
      * @throws Exception
      *
-     * @return array|PDOStatementProxy
+     * @return array|\PDOStatement|PDOStatementProxy
      */
     public function fetchPairs($key, $value, $object = false)
     {
@@ -211,7 +211,7 @@ class Select extends Common implements \Countable
     /**
      * @throws Exception
      *
-     * @return \ArrayIterator|PDOStatementProxy
+     * @return \ArrayIterator|\PDOStatement|PDOStatementProxy
      */
     public function getIterator()
     {

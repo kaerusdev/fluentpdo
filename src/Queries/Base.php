@@ -25,7 +25,7 @@ abstract class Base implements IteratorAggregate
     /** @var Query */
     protected $fluent;
 
-    /** @var PDOStatementProxy */
+    /** @var \PDOStatement|PDOStatementProxy */
     protected $result;
 
     /** @var array - definition clauses */
@@ -170,7 +170,7 @@ abstract class Base implements IteratorAggregate
     /**
      * Implements method from IteratorAggregate
      *
-     * @return PDOStatementProxy
+     * @return \PDOStatement|PDOStatementProxy
      *
      * @throws Exception
      */
@@ -182,7 +182,7 @@ abstract class Base implements IteratorAggregate
     /**
      * Execute query with earlier added parameters
      *
-     * @return PDOStatementProxy
+     * @return \PDOStatement|PDOStatementProxy
      *
      * @throws Exception
      */
@@ -215,12 +215,10 @@ abstract class Base implements IteratorAggregate
         return $this->fluent->getStructure();
     }
 
-    /**
-     * Get PDOStatementProxy result
-     *
-     * @return ?PDOStatementProxy
-     */
-    public function getResult(): ?PDOStatementProxy
+	/**
+	 * @return \PDOStatement|PDOStatementProxy|null
+	 */
+    public function getResult(): \PDOStatement|PDOStatementProxy|null
     {
         return $this->result;
     }
@@ -520,21 +518,21 @@ abstract class Base implements IteratorAggregate
         }
     }
 
-    /**
-     * @param PDOStatementProxy $result
-     */
-    private function setObjectFetchMode(PDOStatementProxy $result): void
+	/**
+	 * @param \PDOStatement|PDOStatementProxy $result
+	 */
+    private function setObjectFetchMode(\PDOStatement|PDOStatementProxy $result): void
     {
         if ($this->object !== false) {
             if (class_exists($this->object)) {
-                $this->currentFetchMode = PDO::FETCH_CLASS;
+                $this->currentFetchMode = \PDO::FETCH_CLASS;
                 $result->setFetchMode($this->currentFetchMode, $this->object);
             } else {
-                $this->currentFetchMode = PDO::FETCH_OBJ;
+                $this->currentFetchMode = \PDO::FETCH_OBJ;
                 $result->setFetchMode($this->currentFetchMode);
             }
-        } elseif ($this->fluent->getPdo()->getAttribute(PDO::ATTR_DEFAULT_FETCH_MODE) === PDO::FETCH_BOTH) {
-            $this->currentFetchMode = PDO::FETCH_ASSOC;
+        } elseif ($this->fluent->getPdo()->getAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE) === \PDO::FETCH_BOTH) {
+            $this->currentFetchMode = \PDO::FETCH_ASSOC;
             $result->setFetchMode($this->currentFetchMode);
         }
     }

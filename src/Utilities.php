@@ -39,14 +39,14 @@ class Utilities
     }
 
     /**
-     * Converts columns from strings to types according to PDOStatementProxy::columnMeta()
+     * Converts columns from strings to types according to \PDOStatement|PDOStatementProxy::columnMeta()
      *
-     * @param PDOStatementProxy      $statement
-     * @param array|\Traversable $rows - provided by PDOStatementProxy::fetch with PDO::FETCH_ASSOC
+     * @param \PDOStatement|PDOStatementProxy      $statement
+     * @param array|\Traversable $rows - provided by \PDOStatement|PDOStatementProxy::fetch with PDO::FETCH_ASSOC
      *
      * @return array|\Traversable
      */
-    public static function stringToNumeric(PDOStatementProxy $statement, $rows)
+    public static function stringToNumeric(\PDOStatement|PDOStatementProxy $statement, $rows)
     {
         for ($i = 0; ($columnMeta = $statement->getColumnMeta($i)) !== false; $i++) {
             $type = $columnMeta['native_type'];

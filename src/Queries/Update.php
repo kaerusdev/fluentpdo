@@ -79,7 +79,7 @@ class Update extends Common
      *
      * @throws Exception
      *
-     * @return int|boolean|PDOStatementProxy
+     * @return int|boolean|\PDOStatement|PDOStatementProxy
      */
     public function execute($getResultAsPdoStatement = false)
     {
